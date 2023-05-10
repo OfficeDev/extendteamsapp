@@ -1,0 +1,19 @@
+{
+    "name": "tab-bot-addin",
+    "version": "0.0.1",
+    "author": "Contoso",
+    "scripts": {
+        "dev:teamsfx": "env-cmd --silent -f .localConfigs npm run start:tab",
+        "build:tab": "cd tab && npm run build",
+        "install:tab": "cd tab && npm install",
+        "start:tab": "cd tab && npm run start",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "@microsoft/teamsfx-cli": "^1.2.3",
+        "@microsoft/teamsfx-run-utils": "alpha",
+        "env-cmd": "^10.1.0",
+        "office-addin-dev-settings": "^2.0.3",
+        "ncp": "^2.0.0"
+    }
+}
