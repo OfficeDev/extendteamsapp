@@ -7,11 +7,11 @@ provision:
   - uses: script # Set TAB_DOMAIN for local launch
     name: Set TAB_DOMAIN for local launch
     with:
-      run: echo "::set-output TAB_DOMAIN=localhost:53000"
+      run: echo "::set-output TAB_DOMAIN=localhost:53001"
   - uses: script # Set TAB_ENDPOINT for local launch
     name: Set TAB_ENDPOINT for local launch
     with:
-      run: echo "::set-output TAB_ENDPOINT=https://localhost:53000"
+      run: echo "::set-output TAB_ENDPOINT=https://localhost:53001"
   - uses: teamsApp/create # Creates a Teams app
     with:
       name: NorthwindSuppliers-${{TEAMSFX_ENV}} # Teams app name
@@ -79,7 +79,7 @@ deploy:
       envs:
         BROWSER: none
         HTTPS: true
-        PORT: 3000
+        PORT: 53001
         SSL_CRT_FILE: ${{SSL_CRT_FILE}}
         SSL_KEY_FILE: ${{SSL_KEY_FILE}}
   - uses: cli/runNpmCommand # Run npm command
