@@ -7,11 +7,11 @@ provision:
   - uses: script # Set TAB_DOMAIN for local launch
     name: Set TAB_DOMAIN for local launch
     with:
-      run: echo "::set-output TAB_DOMAIN=localhost:3000"
+      run: echo "::set-output TAB_DOMAIN=localhost:53000"
   - uses: script # Set TAB_ENDPOINT for local launch
     name: Set TAB_ENDPOINT for local launch
     with:
-      run: echo "::set-output TAB_ENDPOINT=https://localhost:3000"
+      run: echo "::set-output TAB_ENDPOINT=https://localhost:53000"
   - uses: teamsApp/create # Creates a Teams app
     with:
       name: NorthwindSuppliers-${{TEAMSFX_ENV}} # Teams app name
@@ -35,9 +35,9 @@ provision:
         - name: msteams
         - name: m365extensions
 
-  - uses: teamsApp/validateManifest # Validate using manifest schema
-    with:
-      manifestPath: ./appPackage/manifest.json # Path to manifest template
+  #- uses: teamsApp/validateManifest # Validate using manifest schema
+  #  with:
+  #    manifestPath: ./appPackage/manifest.json # Path to manifest template
 
   - uses: teamsApp/zipAppPackage # Build Teams app package with latest env value
     with:

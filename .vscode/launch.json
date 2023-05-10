@@ -1,6 +1,17 @@
 {
     "version": "0.2.0",
+    
     "configurations": [
+        {
+            "name": "Outlook Desktop (Edge Chromium)",
+            "type": "msedge",
+            "request": "attach",
+            "port": 9229,
+            "timeout": 600000,
+            "webRoot": "${workspaceRoot}",
+            "preLaunchTask": "Start App and AddIn Locally",
+            "postDebugTask": "Stop Debug"
+        },
         {
             "name": "Launch Remote in Teams (Edge)",
             "type": "msedge",
@@ -166,6 +177,7 @@
                 "order": 2
             },
             "stopAll": true
-        }
+        },
+        
     ]
 }

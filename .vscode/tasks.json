@@ -129,6 +129,184 @@
                     "endsPattern": "Compiled|Failed|compiled|failed"
                 }
             }
+        },
+
+        {
+            "label": "Build (Development)",
+            "type": "npm",
+            "script": "build:dev",
+            "dependsOn": [
+              "Install"
+            ],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "presentation": {
+              "clear": true,
+              "panel": "shared",
+              "showReuseMessage": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            }
+          },
+          {
+            "label": "Build (Production)",
+            "type": "npm",
+            "script": "build",
+            "dependsOn": [
+              "Install"
+            ],
+            "group": "build",
+            "presentation": {
+              "clear": true,
+              "panel": "shared",
+              "showReuseMessage": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Debug: Outlook Desktop",
+            "type": "npm",
+            "script": "start",
+            "dependsOn": [
+              "Check OS",
+              "Install"
+            ],
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated",
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Dev Server",
+            "type": "npm",
+            "script": "dev-server",
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Install",
+            "type": "npm",
+            "script": "install",
+            "presentation": {
+              "clear": true,
+              "panel": "shared",
+              "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Lint: Check for problems",
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher": [
+              "$eslint-stylish"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Lint: Fix all auto-fixable problems",
+            "type": "npm",
+            "script": "lint:fix",
+            "problemMatcher": [
+              "$eslint-stylish"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Stop Debug",
+            "type": "npm",
+            "script": "stop",
+            "presentation": {
+              "clear": true,
+              "panel": "shared",
+              "showReuseMessage": false
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Watch",
+            "type": "npm",
+            "script": "watch",
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            },
+          },
+          {
+            "label": "Check OS",
+            "type": "shell",
+            "windows": {
+              "command": "echo 'Sideloading in Outlook on Windows is supported'"
+            },
+            "linux": {
+              "command": "echo 'Sideloading on Linux is not supported' && exit 1"
+            },
+            "osx": {
+              "command": "echo 'Sideloading in Outlook on Mac is not supported' && exit 1"
+            },
+            "presentation": {
+              "clear": true,
+              "panel": "dedicated",
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/add-in/"
+            }
+          },
+          {
+            // Create the debug resources.
+            // See https://aka.ms/teamsfx-tasks/provision to know the details and how to customize the args.
+            "label": "Create resources",
+            "type": "teamsfx",
+            "command": "provision",
+            "args": {
+                "template": "${workspaceFolder}/teamsapp.local.yml",
+                "env": "local"
+            }
+        },
+        {
+            "label": "Start Add-in Locally",
+            "dependsOn": [
+                "Create resources",
+                "Debug: Outlook Desktop"
+            ],
+            "dependsOrder": "sequence"
+        },{
+            "label": "Start App and AddIn Locally",
+            "dependsOn": [
+                "Start Teams App Locally",
+                "Start Add-in Locally"
+            ],
+            "dependsOrder": "sequence"
         }
+        
     ]
 }
