@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DetailsList, SelectionMode, DefaultButton } from '@fluentui/react';
-import {app,pages} from '@microsoft/teams-js'
+import {app} from '@microsoft/teams-js'
 export const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
@@ -17,14 +17,14 @@ export const Suppliers = () => {
         const context = await app.getContext();
         if (searchParams.includes('country')) {
           const country = searchParams.match(/=(.*)/)[1];
-           const supplier = data.value.filter(x => x.Country == country)
+           const supplier = data.value.filter(x => x.Country === country)
            if (supplier.length > 0) {
             setSuppliers(supplier);
            }           
         }
         //deeplinking
         if (context.page.subPageId) {
-          const supplier = data.value.filter(x => x.SupplierID == context.page.subPageId)
+          const supplier = data.value.filter(x => x.SupplierID === context.page.subPageId)
           if (supplier.length > 0) {
             setSelectedSupplier(supplier[0]);
           } 

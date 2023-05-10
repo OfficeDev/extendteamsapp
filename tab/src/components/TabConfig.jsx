@@ -18,7 +18,7 @@ class TabConfig extends React.Component {
        */
       const countrySelect = document.getElementById('countrySelect');
 
-      let selectedCountryId = 0;
+     // let selectedCountryId = 0;
       let selectedCountryName = '';
       pages.config.registerOnSaveHandler((saveEvent) => {
         const baseUrl = `https://${window.location.hostname}:${window.location.port}`;
@@ -41,7 +41,8 @@ class TabConfig extends React.Component {
        * to be valid.  This will enable the save button in the configuration
        * dialog.
        */
-      const countries = [{id:1,name:"India"},{id:2,name:"Italy"}];     
+      const countries = [{id:1,name:"USA"},{id:2,name:"Italy"},{id:3,name:"Australia"},{id:4,name:"France"},{id:4,name:"Japan"}];     
+   
       countries.forEach((c) => {    
         const options = document.createElement('option');     
           options.value = c.id;
@@ -52,7 +53,7 @@ class TabConfig extends React.Component {
       // When a category is selected, it's OK to save
       countrySelect.addEventListener('change', (ev) => {
           selectedCountryName = ev.target.options[ev.target.selectedIndex].innerText;
-          selectedCountryId = ev.target.value;
+         // selectedCountryId = ev.target.value;
           pages.config.setValidityState(true);
       });
       //
