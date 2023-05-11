@@ -19,7 +19,7 @@
     "devDependencies": {
         "env-cmd": "^10.1.0"
     },
-    "scripts": {
+    "scripts": {        
         "dev:teamsfx": "env-cmd --silent -f .localConfigs npm run start",
         "start": "react-scripts start",
         "build": "react-scripts build",

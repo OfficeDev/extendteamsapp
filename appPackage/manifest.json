@@ -1,6 +1,6 @@
 {
-    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.14/MicrosoftTeams.schema.json",
-    "manifestVersion": "1.14",
+    "$schema": "https://raw.githubusercontent.com/OfficeDev/microsoft-teams-app-schema/preview/DevPreview/MicrosoftTeams.schema.json",
+    "manifestVersion": "devPreview",
     "version": "1.0.0",
     "id": "${{TEAMS_APP_ID}}",
     "packageName": "com.microsoft.teams.extension",
@@ -23,6 +23,20 @@
         "full": "full description of Northwind suppliers"
     },
     "accentColor": "#FFFFFF",
+    "authorization": {
+        "permissions": {
+            "resourceSpecific": [
+                {
+                    "name": "MailboxItem.ReadWrite.User",
+                    "type": "Delegated"
+                },
+                {
+                    "name": "Mailbox.ReadWrite.User",
+                    "type": "Delegated"
+                }
+            ]
+        }
+    },
     "bots": [],
     "staticTabs": [
         {
@@ -94,6 +108,255 @@
         "messageTeamMembers"
     ],
     "validDomains": [
-        "${{TAB_DOMAIN}}"
+        "${{TAB_DOMAIN}}",
+        "${{ADDIN_DOMAIN}}"
+    ],
+    "extensions": [
+        {
+            "requirements": {
+                "capabilities": [
+                    {
+                        "name": "Mailbox",
+                        "minVersion": "1.1"
+                    }
+                ],
+                "scopes": [
+                    "mail"
+                ]
+            },
+            "runtimes": [
+                {
+                    "requirements": {
+                        "capabilities": [
+                            {
+                                "name": "Mailbox",
+                                "minVersion": "1.5"
+                            }
+                        ]
+                    },
+                    "id": "runtime_1",
+                    "type": "general",
+                    "code": {
+                        "page": "https://localhost:53000/commands.html",
+                        "script": "https://localhost:53000/commands.js"
+                    },
+                    "lifetime": "short",
+                    "actions": [
+                        {
+                            "id": "onMessageComposeHandler",
+                            "type": "executeFunction",
+                            "displayName": "onMessageComposeHandler"
+                        },
+                        {
+                            "id": "onAppointmentComposeHandler",
+                            "type": "executeFunction",
+                            "displayName": "onAppointmentComposeHandler"
+                        },
+                        {
+                            "id": "onMessageSendHandler",
+                            "type": "executeFunction",
+                            "displayName": "onMessageSendHandler"
+                        },
+                        {
+                            "id": "onAppointmentSendHandler",
+                            "type": "executeFunction",
+                            "displayName": "onAppointmentSendHandler"
+                        }
+                    ]
+                },
+                {
+                    "requirements": {
+                        "capabilities": [
+                            {
+                                "name": "Mailbox",
+                                "minVersion": "1.5"
+                            }
+                        ]
+                    },
+                    "id": "runtime_2",
+                    "type": "general",
+                    "code": {
+                        "page": "https://localhost:53000/taskpane.html"
+                    },
+                    "lifetime": "short",
+                    "actions": [
+                        {
+                            "id": "action_1",
+                            "type": "openPage",
+                            "view": "view_1",
+                            "displayName": "action_1",
+                            "pinnable": false
+                        },
+                        {
+                            "id": "action_2",
+                            "type": "openPage",
+                            "view": "view_2",
+                            "displayName": "action_2",
+                            "pinnable": false
+                        }
+                    ]
+                }
+            ],
+            "ribbons": [
+                {
+                    "requirements": {
+                        "capabilities": [
+                            {
+                                "name": "Mailbox",
+                                "minVersion": "1.5"
+                            }
+                        ],
+                        "scopes": [
+                            "mail"
+                        ],
+                        "formFactors": [
+                            "desktop"
+                        ]
+                    },
+                    "contexts": [
+                        "mailCompose"
+                    ],
+                    "tabs": [
+                        {
+                            "builtInTabId": "TabDefault",
+                            "groups": [
+                                {
+                                    
+                                    "id": "CategoriesGroupMessageCompose",
+                                    "label": "Office Add-ins Smart Alerts Sample",
+                                    "controls": [
+                                        {
+                                            "id": "MessageComposeSelectButton",
+                                            "type": "button",
+                                            "label": "Select categories",
+                                            "icons": [
+                                                {
+                                                    "size": 16,
+                                                    "file": "icon-16.png"
+                                                },
+                                                {
+                                                    "size": 32,
+                                                    "file": "icon-32.png"
+                                                },
+                                                {
+                                                    "size": 80,
+                                                    "file": "icon-80.png"
+                                                }
+                                            ],
+                                            "supertip": {
+                                                "title": "Select categories",
+                                                "description": "Opens a task pane to select and apply categories to an email or appointment."
+                                            },
+                                            "actionId": "action_1",
+                                            "overriddenByRibbonApi": false,
+                                            "enabled": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "requirements": {
+                        "capabilities": [
+                            {
+                                "name": "Mailbox",
+                                "minVersion": "1.5"
+                            }
+                        ],
+                        "scopes": [
+                            "mail"
+                        ],
+                        "formFactors": [
+                            "desktop"
+                        ]
+                    },
+                    "contexts": [
+                        "meetingDetailsOrganizer"
+                    ],
+                    "tabs": [
+                        {
+                            "builtInTabId": "TabDefault",
+                            "groups": [
+                                {
+                                    "overriddenByRibbonApi": false,
+                                    "id": "CategoriesGroupAppointmentOrganizer",
+                                    "label": "Office Add-ins Smart Alerts Sample",
+                                    "controls": [
+                                        {
+                                            "id": "AppointmentOrganizerSelectButton",
+                                            "type": "button",
+                                            "label": "Select categories",
+                                            "icons": [
+                                                {
+                                                    "size": 16,
+                                                    "file": "icon-16_02.png"
+                                                },
+                                                {
+                                                    "size": 32,
+                                                    "file": "icon-32_02.png"
+                                                },
+                                                {
+                                                    "size": 80,
+                                                    "file": "icon-80_02.png"
+                                                }
+                                            ],
+                                            "supertip": {
+                                                "title": "Select categories",
+                                                "description": "Opens a task pane to select and apply categories to an email or appointment."
+                                            },
+                                            "actionId": "action_2",
+                                            "overriddenByRibbonApi": false,
+                                            "enabled": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "autoRunEvents": [
+                {
+                    "requirements": {
+                        "capabilities": [
+                            {
+                                "name": "Mailbox",
+                                "minVersion": "1.5"
+                            }
+                        ],
+                        "scopes": [
+                            "mail"
+                        ]
+                    },
+                    "events": [
+                        {
+                            "type": "newMessageComposeCreated",
+                            "actionId": "onMessageComposeHandler"
+                        },
+                        {
+                            "type": "newAppointmentOrganizerCreated",
+                            "actionId": "onAppointmentComposeHandler"
+                        },
+                        {
+                            "type": "messageSending",
+                            "actionId": "onMessageSendHandler",
+                            "options": {
+                                "sendMode": "softBlock"
+                            }
+                        },
+                        {
+                            "type": "appointmentSending",
+                            "actionId": "onAppointmentSendHandler",
+                            "options": {
+                                "sendMode": "block"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "audienceClaimUrl": "https://localhost:53000/taskpane.html"
+        }
     ]
 }
