@@ -7,6 +7,7 @@
     "private": true,
     "dependencies": {
         "@fluentui/react-components": "^9.18.0",
+        "@fluentui/react-icons": "^2.0.201",
         "@microsoft/teams-js": "^2.11.0",
         "@microsoft/teamsfx": "^2.2.0",
         "@microsoft/teamsfx-react": "^3.0.0-beta.2023041408.0",
@@ -19,7 +20,7 @@
     "devDependencies": {
         "env-cmd": "^10.1.0"
     },
-    "scripts": {        
+    "scripts": {
         "dev:teamsfx": "env-cmd --silent -f .localConfigs npm run start",
         "start": "react-scripts start",
         "build": "react-scripts build",
