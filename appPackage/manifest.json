@@ -223,7 +223,7 @@
                                 {
                                     
                                     "id": "CategoriesGroupMessageCompose",
-                                    "label": "Office Add-ins Smart Alerts Sample",
+                                    "label": "Supplier Categorizer",
                                     "controls": [
                                         {
                                             "id": "MessageComposeSelectButton",
@@ -282,7 +282,7 @@
                                 {
                                     "overriddenByRibbonApi": false,
                                     "id": "CategoriesGroupAppointmentOrganizer",
-                                    "label": "Office Add-ins Smart Alerts Sample",
+                                    "label": "Supplier Categorizer",
                                     "controls": [
                                         {
                                             "id": "AppointmentOrganizerSelectButton",
