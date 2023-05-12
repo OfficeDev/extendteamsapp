@@ -1,45 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { DetailsList, SelectionMode, DefaultButton } from '@fluentui/react';
-import {app,pages} from '@microsoft/teams-js'
-export const Suppliers = () => {
+import { DefaultButton, DetailsList, SelectionMode } from '@fluentui/react';
+import { Link, Text } from '@fluentui/react-components'
+import React, { useEffect, useState } from 'react';
+
+import { app } from '@microsoft/teams-js'
+
+export const Suppliers = (props) => {
   const [suppliers, setSuppliers] = useState([]);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
 
-  useEffect(()=> {      
+  useEffect(() => {
     async function fetchSuppliers() {
       const response = await fetch("https://services.odata.org/V4/Northwind/Northwind.svc/Suppliers");
       const data = await response.json();
       setSuppliers(data.value);
-      
+      props.getFilteredData(data.value);
       try {
         const searchParams = window.location.href;
         await app.initialize();
         const context = await app.getContext();
         if (searchParams.includes('country')) {
           const country = searchParams.match(/=(.*)/)[1];
-           const supplier = data.value.filter(x => x.Country == country)
-           if (supplier.length > 0) {
+          const supplier = data.value.filter(x => x.Country === country)
+          if (supplier.length > 0) {
             setSuppliers(supplier);
-           }           
+          }
         }
         //deeplinking
         if (context.page.subPageId) {
-          const supplier = data.value.filter(x => x.SupplierID == context.page.subPageId)
+          const supplier = data.value.filter(x => x.SupplierID === context.page.subPageId)
           if (supplier.length > 0) {
             setSelectedSupplier(supplier[0]);
-          } 
+          }
           else {
             console.error('Supplier not found or invalid data');
           }
         }
       } catch (error) {
         console.error('Could not initialize Teams JS client library');
-      }      
-  }
-  fetchSuppliers();    
+      }
+    }
+    fetchSuppliers();
   }, []);
 
-  const handleRowClick = (supplier) => {   
+  const handleRowClick = (supplier) => {
     setSelectedSupplier(supplier);
   };
 
@@ -53,9 +56,9 @@ export const Suppliers = () => {
       isResizable: true,
       onRender: (item) => {
         return (
-          <a href="javascript:;" key={item.id} onClick={() => handleRowClick(item)}>
+          <Link key={item.id} style={{ fontSize: '12px' }} onClick={() => handleRowClick(item)}>
             {item.CompanyName}
-          </a>
+          </Link>
         );
       }
     },
@@ -121,15 +124,18 @@ export const Suppliers = () => {
 
   return (
     <div>
-      {!selectedSupplier && (<div>
-        <h2>Suppliers</h2>
-        <DetailsList
-          items={suppliers}
-          columns={supplierColumns}
-          selectionMode={SelectionMode.single}
-          onItemInvoked={handleRowClick}
-        />
-      </div>)}
+      {!selectedSupplier && (
+        <div>
+          <div className='headingSupplier'>
+            <Text size={500} as="h2" style={{ margin: "15px" }}>Suppliers</Text>
+          </div>
+          <DetailsList
+            items={suppliers}
+            columns={supplierColumns}
+            selectionMode={SelectionMode.single}
+            onItemInvoked={handleRowClick}
+          />
+        </div>)}
       {selectedSupplier && (
         <div>
           <DetailsList

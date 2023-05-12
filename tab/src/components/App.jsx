@@ -1,11 +1,14 @@
-import React from "react";
 // https://fluentsite.z22.web.core.windows.net/quick-start
 import { FluentProvider, teamsLightTheme, tokens } from "@fluentui/react-components";
-import { HashRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, HashRouter as Router, Routes } from "react-router-dom";
+
+import DialogPage from "./Dailog";
+import LaunchPage from "./LaunchPage";
 import Privacy from "./Privacy";
-import TermsOfUse from "./TermsOfUse";
+import React from "react";
 import Tab from "./Tab";
 import TabConfig from "./TabConfig";
+import TermsOfUse from "./TermsOfUse";
 import { useTeams } from "@microsoft/teamsfx-react";
 
 /**
@@ -28,6 +31,8 @@ export default function App() {
         <Routes>
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/termsofuse" element={<TermsOfUse />} />
+          <Route path="/dialogPage" element={<DialogPage />} />
+          <Route path="/launchPage" element={<LaunchPage />} />
           <Route path="/tab" element={<Tab />} />
           <Route path="/tabconfig" element={<TabConfig />} />
           <Route path="*" element={<Navigate to={"/tab"} />}></Route>

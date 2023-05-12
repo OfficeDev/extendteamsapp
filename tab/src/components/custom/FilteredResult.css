@@ -1,0 +1,36 @@
+.filteredResult {
+    display: flex;
+    padding: 10px 15px;
+    background: #fff;
+    margin-bottom: 15px;
+    flex-direction: column;
+}
+
+.filteredHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filteredBody {
+    display: flex;
+}
+
+.filteredList {
+    width: 50%;
+}
+
+.filteredListItems {
+    overflow-y: scroll;
+    height: 80px;
+}
+
+.filteredAttachment {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.filteredText {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,36 @@
+.dialog {
+    background: #fff;
+}
+
+.dialog_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog_form {
+    max-width: 600px;
+}
+
+.dialog_text {
+    padding: 20px;
+    align-items: center;
+}
+
+.dialog_list {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.dialog_listitem {
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+}
+
+.dialog_button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}

@@ -27,9 +27,27 @@
     "staticTabs": [
         {
             "entityId": "index",
-            "name": "Personal Tab",
+            "name": "Tab",
             "contentUrl": "${{TAB_ENDPOINT}}/index.html#/tab",
             "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/tab",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "launchPage",
+            "name": "LP",
+            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/launchPage",
+            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/launchPage",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "dialogPage",
+            "name": "Dialog",
+            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/dialogPage",
+            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/dialogPage",
             "scopes": [
                 "personal"
             ]
@@ -85,15 +103,18 @@
                 "meetingDetailsTab",
                 "meetingSidePanel",
                 "meetingStage"
-              ]
+            ]
         }
     ],
-   
     "permissions": [
         "identity",
         "messageTeamMembers"
     ],
     "validDomains": [
         "${{TAB_DOMAIN}}"
-    ]
+    ],
+    "webApplicationInfo": {
+        "id": "${{AAD_APP_CLIENT_ID}}",
+        "resource": "api://${{TAB_DOMAIN}}/${{AAD_APP_CLIENT_ID}}"
+    }
 }
