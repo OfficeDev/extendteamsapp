@@ -22,6 +22,7 @@ export default class LaunchPage extends React.Component {
             suppliers: [],
             filteredSupplierList: undefined
         };
+        this.clearFilter = this.clearFilter.bind(this);
     }
 
     async componentDidMount() {
@@ -137,6 +138,12 @@ export default class LaunchPage extends React.Component {
         }
         await this.initData();
     }
+    async clearFilter() {
+        this.setState({
+            actionId: undefined,
+            actionItem: undefined,
+        })
+    }
 
     render() {
 
@@ -148,6 +155,7 @@ export default class LaunchPage extends React.Component {
                             actionId={this.state.actionId}
                             actionItem={this.state.actionItem}
                             sheetData={this.state.filteredSupplierList}
+                            clearFilter={this.clearFilter}
                         />
                         <Suppliers suppliers={this.state.suppliers} />
                     </>

@@ -165,7 +165,7 @@ class DialogPage extends React.Component {
     render() {
         return (
             <div className="dialog" >
-                {this.state.showLoginPage === false && (
+                {this.state.showLoginPage === false && this.state.suppliers && (
                     <form className="dialog_form">
                         <div className='dialog_header'>
                             {!this.state.selectedSupplier &&

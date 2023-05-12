@@ -21,7 +21,7 @@ class FilteteredResult extends React.Component {
                     <div className='filteredResult'>
                         <div className='filteredHeader'>
                             <Text as="h4" style={{ margin: "10px 0" }} size={500} weight='bold'>FilteteredResult:</Text>
-                            <Button appearance='primary'>
+                            <Button appearance='primary' onClick={this.props.clearFilter}>
                                 Clear Filter
                             </Button>
                         </div>
