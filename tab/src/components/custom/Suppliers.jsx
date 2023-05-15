@@ -107,7 +107,7 @@ class Suppliers extends React.Component {
             }
         ];
         return (<div>
-            {!this.state.selectedSupplier && this.props.suppliers.length > 0 && (
+            {!this.state.selectedSupplier && this.props.suppliers && this.props.suppliers.length > 0 && (
                 <div>
                     <div className='headingSupplier'>
                         <Text size={500} as="h2" style={{ margin: "15px" }}>Suppliers</Text>

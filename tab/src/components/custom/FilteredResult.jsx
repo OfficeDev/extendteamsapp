@@ -1,6 +1,6 @@
 import './FilteredResult.css';
 
-import { Button, Label, Text } from "@fluentui/react-components";
+import { Button, Text } from "@fluentui/react-components";
 
 import Attachment from './Attachment';
 import React from "react";
@@ -20,7 +20,7 @@ class FilteteredResult extends React.Component {
                 {this.props.actionId && this.props.actionItem && (
                     <div className='filteredResult'>
                         <div className='filteredHeader'>
-                            <Text as="h4" style={{ margin: "10px 0" }} size={500} weight='bold'>FilteteredResult:</Text>
+                            <Text as="h4" style={{ margin: "10px 0" }} size={500} weight='bold'>Filtered Result:</Text>
                             <Button appearance='primary' onClick={this.props.clearFilter}>
                                 Clear Filter
                             </Button>
@@ -30,9 +30,9 @@ class FilteteredResult extends React.Component {
                                 {this.props.sheetData && this.props.sheetData.length > 0 &&
                                     <Text className='filteredText'>{`Found ${this.props.sheetData.length} suppliers mentioned in this file`}</Text>
                                 }
-                                <Attachment actionItem={this.props.actionItem} />
+                                <Attachment actionItem={this.props.actionItem} appearance="subtle" />
                             </div>
-                            <div className="filteredList">
+                            {/* <div className="filteredList">
                                 {this.props.sheetData && this.props.sheetData.length > 0 &&
                                     <>
                                         <Text as='h4' weight='bold'> List of Supplier Names :</Text>
@@ -49,7 +49,7 @@ class FilteteredResult extends React.Component {
                                         </div>
                                     </>
                                 }
-                            </div>
+                            </div> */}
                         </div>
                     </div>)
                 }

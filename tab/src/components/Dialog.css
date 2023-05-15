@@ -1,5 +1,6 @@
 .dialog {
     background: #fff;
+    padding: 0 10px;
 }
 
 .dialog_header {
@@ -12,8 +13,8 @@
 }
 
 .dialog_text {
-    padding: 20px;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .dialog_list {
@@ -25,12 +26,16 @@
 
 .dialog_listitem {
     display: flex;
-    padding: 10px 20px;
+    padding: 5px 0px;
     align-items: center;
 }
 
 .dialog_button {
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+}
+
+.dialog_attachment {
+    padding-top: 10px;
+    border-top: 1px solid #e8e7e5;
 }

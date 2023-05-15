@@ -9,13 +9,14 @@ import React from "react";
 import Suppliers from "./custom/Suppliers"
 import { app } from "@microsoft/teams-js";
 import config from "../lib/config";
+import { getAttachmentFromLocalStorage } from "./helper/helper";
 
 export default class LaunchPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             userInfo: {},
-            actionId: undefined,
+            actionId: "01JVL355MQ3LUVYVKHMZEJIV2AOP372PEM",
             actionItem: undefined,
             showLoginPage: undefined,
             sheetData: undefined,
@@ -56,7 +57,10 @@ export default class LaunchPage extends React.Component {
         try {
             const context = await app.getContext();
             const objectId = context.user && context.user.id;
-            const actionId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
+            let actionId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
+            if (!actionId) {
+                actionId = this.state.actionId;
+            }
             this.setState({ actionId: actionId });
             // Get Microsoft graph client
             const graphClient = createMicrosoftGraphClientWithCredential(
@@ -78,7 +82,19 @@ export default class LaunchPage extends React.Component {
                 return undefined;
             });
 
-            this.setState({ filteredSupplierList: filteredSupplierList.filter(x => x !== undefined) });
+            const attachments = getAttachmentFromLocalStorage();
+            const filteredSupplierListWithAttachment = filteredSupplierList.filter(x => x !== undefined).map(y => {
+                const attachmentName = attachments && attachments.storeData.find(item => item.selectedSuplierCompanyName === y.CompanyName);
+                return {
+                    CompanyName: y.CompanyName,
+                    ContactName: y.ContactName,
+                    Phone: y.Phone,
+                    Country: y.Country,
+                    Attachments: attachmentName ? attachmentName.actionItemName : ""
+                }
+            });
+
+            this.setState({ filteredSupplierList: filteredSupplierListWithAttachment });
         } catch (error) {
             console.log(error);
         }
@@ -146,7 +162,6 @@ export default class LaunchPage extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 {this.state.showLoginPage === false && (
@@ -156,8 +171,9 @@ export default class LaunchPage extends React.Component {
                             actionItem={this.state.actionItem}
                             sheetData={this.state.filteredSupplierList}
                             clearFilter={this.clearFilter}
+
                         />
-                        <Suppliers suppliers={this.state.suppliers} />
+                        <Suppliers suppliers={this.state.filteredSupplierList} />
                     </>
                 )}
                 {this.state.showLoginPage === true && (

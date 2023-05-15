@@ -13,7 +13,6 @@ export const Suppliers = (props) => {
       const response = await fetch("https://services.odata.org/V4/Northwind/Northwind.svc/Suppliers");
       const data = await response.json();
       setSuppliers(data.value);
-      props.getFilteredData(data.value);
       try {
         const searchParams = window.location.href;
         await app.initialize();

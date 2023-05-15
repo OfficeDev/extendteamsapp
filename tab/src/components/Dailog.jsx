@@ -2,30 +2,16 @@ import './Dialog.css';
 
 import * as fabIcons from '@uifabric/icons';
 
-import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogContent,
-    DialogSurface,
-    DialogTitle,
-    DialogTrigger,
-    Link,
-    Text
-} from "@fluentui/react-components";
-import {
-    TeamsUserCredential,
-    createMicrosoftGraphClientWithCredential
-} from "@microsoft/teamsfx";
+import { Button, Link, Text } from "@fluentui/react-components";
+import { TeamsUserCredential, createMicrosoftGraphClientWithCredential } from "@microsoft/teamsfx";
 import { app, dialog } from "@microsoft/teams-js";
 
 import Attachment from './custom/Attachment';
-import {
-    Document16Regular
-} from "@fluentui/react-icons";
+import { Document16Regular } from "@fluentui/react-icons";
 import { Icon } from '@fluentui/react/lib/Icon';
 import React from "react";
 import config from "../lib/config";
+import { setValuesToLocalStorage } from './helper/helper';
 
 class DialogPage extends React.Component {
     constructor(props) {
@@ -33,14 +19,13 @@ class DialogPage extends React.Component {
         fabIcons.initializeIcons();
         this.state = {
             userInfo: {},
-            actionId: undefined,
+            actionId: "01JVL355JYVRKAWYPNWBCLB2GFIMNNFFTK",
             actionItem: undefined,
             showLoginPage: undefined,
             sheetData: undefined,
             suppliers: [],
             filteredSupplierList: undefined,
             selectedSupplier: undefined,
-            dialogOpen: false
         };
     }
     async componentDidMount() {
@@ -71,7 +56,10 @@ class DialogPage extends React.Component {
         try {
             const context = await app.getContext();
             const objectId = context.user && context.user.id;
-            const actionId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
+            let actionId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
+            if (!actionId) {
+                actionId = this.state.actionId;
+            }
             this.setState({ actionId: actionId });
             // Get Microsoft graph client
             const graphClient = createMicrosoftGraphClientWithCredential(
@@ -132,13 +120,11 @@ class DialogPage extends React.Component {
         await this.initData();
     }
     async onSubmit(actionItem, selectedSuplier) {
-        //event.preventDefault();
-        // const selectedSuplier = this.state.selectedSupplier;
-        // const actionItem = this.state.actionItem;
 
         const json = {
-            selectedSuplier: selectedSuplier,
-            actionItem: actionItem,
+            selectedSuplierCompanyName: selectedSuplier.CompanyName,
+            actionItem: actionItem.id,
+            actionItemName: actionItem.name
         }
 
         // Use const appIDs=['YOUR_APP_IDS_HERE']; instead of the following one
@@ -147,15 +133,9 @@ class DialogPage extends React.Component {
         console.log(json);
         dialog.url.submit(json, appIDs);
         this.setState({
-            dialogOpen: true,
             selectedSupplier: undefined
-        },
-            () => {
-                setTimeout(() => {
-                    this.setState({ dialogOpen: false })
-                }, 3000);//3 Second delay   
-            }
-        );
+        });
+        setValuesToLocalStorage(json)
     }
 
     handleRowClick = (supplier) => {
@@ -185,40 +165,30 @@ class DialogPage extends React.Component {
                                 </>
                             }
                         </div>
-                        <div className="dialog_list">
-                            {this.state.suppliers.length > 0 && this.state.suppliers.map(item => {
-                                return (
-                                    <div className='dialog_listitem' key={item.SupplierID}>
-                                        <Document16Regular />
-                                        <Link style={{ fontSize: '12px', paddingLeft: "1px" }} onClick={() => this.handleRowClick(item)}>
-                                            {item.CompanyName}
-                                        </Link>
-                                    </div>
-                                );
-                            })}
+                        <div style={{ paddingBottom: "20px" }}>
+                            <div className="dialog_list">
+                                {this.state.suppliers.length > 0 && this.state.suppliers.map(item => {
+                                    return (
+                                        <div className='dialog_listitem' key={item.SupplierID}>
+                                            <Document16Regular />
+                                            <Link style={{ fontSize: '12px', paddingLeft: "1px" }} onClick={() => this.handleRowClick(item)}>
+                                                {item.CompanyName}
+                                            </Link>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                         {this.state.actionItem &&
-                            <div style={{ marginTop: '20px' }}>
-                                <Text className='dialog_text' style={{ padding: '10px 20px' }}>Attach this document to the supplier:</Text>
-                                <div style={{ marginTop: '20px' }}>
+                            <div className='dialog_attachment'>
+                                <Text className='dialog_text'>Attach this document to the supplier:</Text>
+                                <div>
                                     <Attachment actionItem={this.state.actionItem} appearance={"subtle"} />
                                 </div>
                             </div>
                         }
                         <div className="dialog_button">
-                            <Dialog open={this.state.dialogOpen} modalType="non-modal">
-                                <DialogTrigger>
-                                    <Button type="button" appearance="primary" onClick={() => this.onSubmit(this.state.actionItem, this.state.selectedSupplier)}>Add</Button>
-                                </DialogTrigger>
-                                <DialogSurface>
-                                    <DialogBody>
-                                        <DialogTitle>Added Successfully !!!!!</DialogTitle>
-                                        <DialogContent>
-
-                                        </DialogContent>
-                                    </DialogBody>
-                                </DialogSurface>
-                            </Dialog>
+                            <Button type="button" appearance="primary" onClick={() => this.onSubmit(this.state.actionItem, this.state.selectedSupplier)}>Add</Button>
                         </div>
                     </form>
                 )
