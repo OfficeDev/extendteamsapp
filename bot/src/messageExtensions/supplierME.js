@@ -81,6 +81,26 @@ class SupplierME {
         };
 
     };
+    //action
+    createCardCommand(context, action) {
+        // The user has chosen to create a card by choosing the 'Create Card' context menu command.
+        const data = action.data;
+        const heroCard = CardFactory.heroCard(data.Name, data.Contact);
+        heroCard.content.subtitle = data.Name;
+        const attachment = {
+          contentType: heroCard.contentType,
+          content: heroCard.content,
+          preview: heroCard,
+        };
+      
+        return {
+          composeExtension: {
+            type: "result",
+            attachmentLayout: "list",
+            attachments: [attachment],
+          },
+        };
+      }
 
     // Get a flag image URL given a country name
     // Thanks to https://flagpedia.net for providing flag images

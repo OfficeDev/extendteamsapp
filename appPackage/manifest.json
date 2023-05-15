@@ -70,6 +70,67 @@
                             "inputType": "text"
                         }
                     ]
+                },
+                {
+                    "id": "createCard",
+                    "context": [
+                        "compose"
+                    ],
+                    "description": "Command to run action to create a Card from Compose Box",
+                    "title": "Create Card",
+                    "type": "action",
+                    "parameters": [
+                        {
+                            "name": "Name",
+                            "title": "Name",
+                            "description": "Name of supplier",
+                            "inputType": "text"
+                        },
+                        {
+                            "name": "Category",
+                            "title": "Search Category",
+                            "inputType": "choiceset",
+                            "description": "Enter the Category to search for",
+                            "value": "Dairy",
+                            "choices": [
+                                {
+                                    "title": "Dairy",
+                                    "value": "Dairy"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Country",
+                            "title": "Search country",
+                            "inputType": "choiceset",
+                            "description": "Enter the Country to search for",
+                            "value": "USA",
+                            "choices": [
+                                {
+                                    "title": "USA",
+                                    "value": "USA"
+                                },
+                                {
+                                    "title": "Germany",
+                                    "value": "Germany"
+                                },
+                                {
+                                    "title": "Italy",
+                                    "value": "Italy"
+                                },
+                                {
+                                    "title": "Australia",
+                                    "value": "Australia"
+                                }
+                            ]
+                        },
+                          {
+                            "name": "Contact",
+                            "title": "Contact",
+                            "description": "Contact",
+                            "inputType": "text"
+                        }
+                    ]
                 }
             ],
             "messageHandlers": [

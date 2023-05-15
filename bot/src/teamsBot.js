@@ -7,6 +7,15 @@ class TeamsBot extends TeamsActivityHandler {
   }
 
   // Message extension Code
+  //action
+  handleTeamsMessagingExtensionSubmitAction(context, action) {
+    switch (action.commandId) {
+      case "createCard":
+        return SupplierME.createCardCommand(context, action);     
+      default:
+        throw new Error("NotImplemented");
+    }
+  }
   // Search.
   async handleTeamsMessagingExtensionQuery(context, query) {
 
@@ -35,7 +44,8 @@ class TeamsBot extends TeamsActivityHandler {
     
     return NorthwindLinkME.linkQuery(context, query);
 
-  }
+  }  
+
 }
 
 module.exports.TeamsBot = TeamsBot;

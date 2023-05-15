@@ -60,13 +60,7 @@
                                     "spacing": "small",
                                     "text": "${Address}",
                                     "wrap": true
-                                },
-                                {
-                                    "type": "TextBlock",
-                                    "spacing": "none",
-                                    "text": "${City} ${Region} ${PostalCode} ${Country}",
-                                    "wrap": true
-                                },
+                                },                                
                                 {
                                     "type": "TextBlock",
                                     "spacing": "none",
