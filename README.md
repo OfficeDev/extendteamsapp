@@ -1,30 +1,19 @@
-# Teams Toolkit v5.0 Pre-release
+# Northwind Supplier
 
-### What does pre-release mean?
-Pre-release is meant for those who are eager to try the latest Teams Toolkit features and fixes. Even though pre-releases are not intended for use in production, they are at a sufficient quality level for you to generally use and [provide feedback](https://aka.ms/ttk-feedback). However, pre-release versions can and probably will change, and those changes could be major.
+This app will have below Teams capabilities
 
-We've addressed a number of reported bugs and added major changes in this release based on your feedback to make Teams Toolkit more flexible. Some of the key highlights to these changes include:
+- Message extension (search based)
+- Link unfurling
+- Pages with action
+- Outlook add-in
+- Personal tab
+- Channel tab
+- Meeting app
 
-- Use existing infrastructure, resource groups, and more when provisioning
-- Use an existing Teams app ID
-- Use an existing Azure AD app registration ID
-- Use a different tunneling solution or customize the defaults
-- Add custom steps to debugging, provisioning, deploying, publishing, etc.
-
-### What about my existing Teams Toolkit projects?
-The changes in this pre-release require upgrades to the TeamsFx configuration files. We recommend that you create a new app using this version. In the future, we'll provide a way to automatically upgrade existing Teams apps that were created with a previous version of Teams Toolkit.
-
-Learn more about the changes in this pre-release at [https://aka.ms/teamsfx-v5.0-guide](https://aka.ms/teamsfx-v5.0-guide).
-
-# Search based message extension across Microsoft 365
-
-Search-based [message extensions](https://docs.microsoft.com/microsoftteams/platform/messaging-extensions/what-are-messaging-extensions?tabs=nodejs) allow users to search an external system and share results through the compose message area of the Microsoft Teams client. You can now build and run your search-based message extensions in Teams, Outlook for Windows desktop and web experiences.
-
-![Search app demo](https://user-images.githubusercontent.com/11220663/167868361-40ffaaa3-0300-4313-ae22-0f0bab49c329.png)
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/), supported versions: 14, 16, 18
+- [Node.js](https://nodejs.org/), supported versions:  16, 18
 - An M365 account. If you do not have M365 account, apply one from [M365 developer program](https://developer.microsoft.com/microsoft-365/dev-program)
 - [Set up your dev environment for extending Teams apps across Microsoft 365](https://aka.ms/teamsfx-m365-apps-prerequisites)
 > Please note that after you enrolled your developer tenant in Office 365 Target Release, it may take couple days for the enrollment to take effect.
@@ -39,40 +28,51 @@ Follow below instructions to get started with this application template for loca
 1. Press `F5` or use the `Run and Debug Activity Panel` in Visual Studio Code.
 1. Select a target Microsoft application where the message extension runs: `Debug in Teams`, `Debug in Outlook` and click the `Run and Debug` green arrow button.
 
-### Test your application with TeamsFx CLI
-1. Install [ngrok](https://ngrok.com/download) and start your local tunnel service by running the command `ngrok http 3978`.
-1. In the `env/.env.local` file, fill in the values for `BOT_DOMAIN` and `BOT_ENDPOINT` with your ngrok URL.
-   ```
-   BOT_DOMAIN=sample-id.ngrok.io
-   BOT_ENDPOINT=http://sample-id.ngrok.io
-   ```
-1. Executing the command `teamsfx provision --env local` in your project directory.
-1. Executing the command `teamsfx deploy --env local` in your project directory.
-1. Executing the command `teamsfx preview --env local --m365-host <m365-host>` in your project directory, where options for `m365-host` are `teams` or `outlook`.
+## Try out
 
-## Use this message extension app
+After side loading the app to Teams you can test out
 
-This template provides a simple functionality to search for `npm` packages and render the result in [Adaptive Card](https://docs.microsoft.com/microsoftteams/platform/task-modules-and-cards/cards/design-effective-cards?tabs=design).
+### Message extension in Micrsoft Teams
 
-### Use this app in Teams
+Open Microsoft Teams, go to a conversation and select the ellipses in the chat compose area.
+Find the app "Northwind-local" and search for "c" select the product "Chai" (Or do another search for another product) and it will insert the card into the chat area. Send the message.
 
-- `@mention` Your message extension from the `search box area`.
+### Message extension in Outlook
 
-    ![AtBotFromSearch](https://user-images.githubusercontent.com/11220663/167869365-3828ef85-64f7-43bf-9f75-99d882370154.png)
+Open Outlook, create a new email. From the top ribbon select the Apps icons and choose "Northwind-local" app. Do the search and insert of cards similar to the instructions in Teams.
 
-- `@mention` your message extension from the `compose message area`.
+### Link unfurling in Teams and Outlook
+Go to Teams chat or Outlook compose email and paste below link:
 
-    ![AtBotFromMessage](https://user-images.githubusercontent.com/11220663/167869475-528736fa-d0f1-4bf8-9c23-fdffae984802.png)
+```
+https://test.northwindtraders.com?supplierID=3
 
-- Click the `...` under compose message area, find your message extension.
+```
+You can change the ID to 1 or 2. 
+The link should show a preview card automatically.
 
-    ![ComposeArea](https://user-images.githubusercontent.com/11220663/167869578-ce33b2ef-f5f2-4be7-a7a0-57e53b6f7c36.png)
+### Pages with action
 
-### Use this app in Outlook
+After side loading the app open the app by "Adding" the personal tab.
+The tab will list the suppliers dashboard.
 
-- Click the "More apps" icon under compose email area, find your message extension.
-  
-    ![InOutlook](https://user-images.githubusercontent.com/11220663/167869656-20225f14-f982-4e47-8dd0-050285d56853.png)
+In Teams you will see the contact information has a call button to call the contacts.
+In Outlook launch the same personal tab/page and you will see a mail button to compose a mail to the contacts. 
+
+
+### Outlook add-in
+
+To run outlook add-in you need a windows desktop app with Beta channel.
+You'll need to choose the debug configuration `Outlook Desktop (Edge Chromium)` before selecting F5.
+This will sideload the add-in to Outlook.
+
+To test:
+
+Compose a new meeting and on the top ribbon select the "Northwind categories" add in, which will open a taskpane.
+Select a category from the form (one or more categories) and apply to the mail. You will see colour coded labels on the top of the meeting.
+Don't select `Northwind suppliers: sales` from the list. Compose email with body having "sales" in text.
+Try to send the meeting request after filling the rest (Title, To, lLocation etc) of the form.
+You will get a dialog prompt to add the `Northwind suppliers: sales`to the meeting before sending.
 
 ## References
 
