@@ -7,13 +7,20 @@ import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import TabConfig from "./TabConfig";
 import { useTeams } from "@microsoft/teamsfx-react";
+import * as microsoftTeams from "@microsoft/teams-js";
+
 
 /**
  * The main app which handles the initialization and routing
  * of the app.
  */
 export default function App() {
+  // microsoftTeams.app.initialize();
   const { theme } = useTeams({})[0];
+  microsoftTeams.app.initialize();
+  microsoftTeams.app.notifyAppLoaded();
+  microsoftTeams.app.notifySuccess();
+
   return (
     <FluentProvider
       theme={
