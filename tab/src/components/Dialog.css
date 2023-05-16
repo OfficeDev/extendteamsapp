@@ -6,6 +6,7 @@
 .dialog_header {
     display: flex;
     justify-content: space-between;
+    height: 32px;
 }
 
 .dialog_form {

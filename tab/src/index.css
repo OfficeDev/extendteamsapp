@@ -20,15 +20,14 @@ body {
 }
 
 .auth {
-  margin-top: 30vh;
+  padding: 30vh;
+  background-color: #fafafa;
 }
 
-.auth .profile {
-  margin: auto;
-}
 
-.auth h2 {
-  text-align: center;
+.auth h1 {
+  display: flex;
+  justify-content: center;
 }
 
 .auth button {

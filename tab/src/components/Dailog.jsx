@@ -5,24 +5,24 @@ import * as fabIcons from '@uifabric/icons';
 import { Button, Link, Text } from "@fluentui/react-components";
 import { TeamsUserCredential, createMicrosoftGraphClientWithCredential } from "@microsoft/teamsfx";
 import { app, dialog } from "@microsoft/teams-js";
+import { fetchSuppliers, loginBtnClick, setValuesToLocalStorage } from './helper/helper';
 
 import Attachment from './custom/Attachment';
 import { Document16Regular } from "@fluentui/react-icons";
 import { Icon } from '@fluentui/react/lib/Icon';
+import Login from "./custom/Login";
+import MicrosoftGraph from './helper/graph';
 import React from "react";
 import config from "../lib/config";
-import { setValuesToLocalStorage } from './helper/helper';
 
 class DialogPage extends React.Component {
     constructor(props) {
         super(props);
         fabIcons.initializeIcons();
         this.state = {
-            userInfo: {},
             actionId: "01JVL355JYVRKAWYPNWBCLB2GFIMNNFFTK",
             actionItem: undefined,
             showLoginPage: undefined,
-            sheetData: undefined,
             suppliers: [],
             filteredSupplierList: undefined,
             selectedSupplier: undefined,
@@ -30,62 +30,50 @@ class DialogPage extends React.Component {
     }
     async componentDidMount() {
         await this.initTeamsFx();
-        await this.initData();
+        await this.checkIsConsentNeeded();
         await this.fetchData();
     }
+
     async initTeamsFx() {
         const authConfig = {
             clientId: config.clientId,
             initiateLoginEndpoint: config.initiateLoginEndpoint,
         };
-
-        const credential = new TeamsUserCredential(authConfig);
-        const userInfo = await credential.getUserInfo();
-
-        this.setState({
-            userInfo: userInfo,
-        });
-
-        this.scope = ["https://graph.microsoft.com/User.Read", "https://graph.microsoft.com/Files.Read"]; //Files.Read.All
-        this.credential = credential;
+        this.credential = new TeamsUserCredential(authConfig);
+        this.scope = config.scopes;
     }
-    async initData() {
-        await this.checkIsConsentNeeded();
-    }
+
     async fetchData() {
         try {
             const context = await app.getContext();
             const objectId = context.user && context.user.id;
             let actionId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
+
             if (!actionId) {
-                actionId = this.state.actionId;
+                actionId = this.state.actionId
             }
             this.setState({ actionId: actionId });
+
+
             // Get Microsoft graph client
             const graphClient = createMicrosoftGraphClientWithCredential(
                 this.credential,
                 this.scope
             );
-            await this.readActionItem(graphClient, objectId, actionId);
+            const msGraph = new MicrosoftGraph(graphClient, objectId, actionId);
 
-            const response = await fetch("https://services.odata.org/V4/Northwind/Northwind.svc/Suppliers");
-            const data = await response.json();
-            this.setState({ suppliers: data.value });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    async readActionItem(graphClient, objectId, actionId) {
-        try {
-            const actionItem = await graphClient.api(`/users/${objectId}/drive/items/${actionId}`).get();
+            const actionItem = await msGraph.readActionItem();
             this.setState({
                 actionItem: actionItem
             });
-            console.log("driveData", actionItem);
+
+            const response = await fetchSuppliers();
+            this.setState({ suppliers: response.value });
         } catch (error) {
-            console.log(error);
+            console.log("fetchData", error);
         }
     }
+
     async checkIsConsentNeeded() {
         try {
             await this.credential.getToken(this.scope);
@@ -100,47 +88,27 @@ class DialogPage extends React.Component {
         });
         return false;
     }
-    async loginBtnClick() {
-        try {
-            // Popup login page to get user's access token
-            await this.credential.login(this.scope);
-        } catch (err) {
-            console.log(err);
-            if (err instanceof Error && err.message?.includes("CancelledByUser")) {
-                const helpLink = "https://aka.ms/teamsfx-auth-code-flow";
-                err.message +=
-                    '\nIf you see "AADSTS50011: The reply URL specified in the request does not match the reply URLs configured for the application" ' +
-                    "in the popup window, you may be using unmatched version for TeamsFx SDK (version >= 0.5.0) and Teams Toolkit (version < 3.3.0) or " +
-                    `cli (version < 0.11.0). Please refer to the help link for how to fix the issue: ${helpLink}`;
-            }
-
-            alert("Login failed: " + err);
-            return;
-        }
-        await this.initData();
+    async loginBtn() {
+        await loginBtnClick(this.credential, this.scope);
     }
     async onSubmit(actionItem, selectedSuplier) {
 
-        const json = {
+        const actionAddData = {
             selectedSuplierCompanyName: selectedSuplier.CompanyName,
             actionItem: actionItem.id,
             actionItemName: actionItem.name
         }
+        console.log("onSubmit", actionAddData);
 
-        // Use const appIDs=['YOUR_APP_IDS_HERE']; instead of the following one
-        // if you want to restrict which applications your dialog can submit to
-        const appIDs = undefined;
-        console.log(json);
-        dialog.url.submit(json, appIDs);
         this.setState({
             selectedSupplier: undefined
         });
-        setValuesToLocalStorage(json)
+        setValuesToLocalStorage(actionAddData)
+        dialog.url.submit(actionAddData);
     }
 
     handleRowClick = (supplier) => {
         this.setState({ selectedSupplier: supplier });
-        console.log(supplier);
     };
     render() {
         return (
@@ -151,18 +119,16 @@ class DialogPage extends React.Component {
                             {!this.state.selectedSupplier &&
                                 <Text className="dialog_text" style={{ display: 'flex' }}>Select a Suplier :</Text>
                             }
-
-                            {this.state.selectedSupplier &&
-                                <>
-                                    <Text className="dialog_text" style={{ display: 'flex' }}>
-                                        {'Selected Supplier :'}
-                                        <Text weight='bold' style={{ paddingLeft: "2px" }}>
-                                            {this.state.selectedSupplier.CompanyName}
-                                        </Text>
+                            {this.state.selectedSupplier && <>
+                                <Text className="dialog_text" style={{ display: 'flex' }}>
+                                    {'Selected Supplier :'}
+                                    <Text weight='bold' style={{ paddingLeft: "2px" }}>
+                                        {this.state.selectedSupplier.CompanyName}
                                     </Text>
+                                </Text>
 
-                                    <Button appearance="transparent" icon={<Icon iconName={"Cancel"} />} onClick={() => this.setState({ selectedSupplier: undefined })}></Button>
-                                </>
+                                <Button appearance="transparent" icon={<Icon iconName={"Cancel"} />} onClick={() => this.setState({ selectedSupplier: undefined })}></Button>
+                            </>
                             }
                         </div>
                         <div style={{ paddingBottom: "20px" }}>
@@ -193,16 +159,9 @@ class DialogPage extends React.Component {
                     </form>
                 )
                 }
-                {
-                    this.state.showLoginPage === true && (
-                        <div className="auth">
-                            <Text>Authenticate</Text>
-                            <Button appearance="primary" onClick={() => this.loginBtnClick()}>
-                                Start
-                            </Button>
-                        </div>
-                    )
-                }
+                {this.state.showLoginPage === true && (
+                    <Login loginBtnClick={this.loginBtn} />
+                )}
             </div >
         );
     }
