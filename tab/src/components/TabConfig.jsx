@@ -1,5 +1,8 @@
 import React from "react";
 import { app, pages } from "@microsoft/teams-js";
+import { Select, Title3, Divider} from "@fluentui/react-components";
+
+import "../index.css";
 
 /**
  * The 'Config' component is used to display your group tabs
@@ -41,7 +44,7 @@ class TabConfig extends React.Component {
        * to be valid.  This will enable the save button in the configuration
        * dialog.
        */
-      const countries = [{id:1,name:"USA"},{id:2,name:"Italy"},{id:3,name:"Australia"},{id:4,name:"France"},{id:4,name:"Japan"}];     
+      const countries = [{id:1,name:"North America"},{id:2,name:"Italy"},{id:3,name:"Australia"},{id:4,name:"France"},{id:4,name:"Japan"}];     
    
       countries.forEach((c) => {    
         const options = document.createElement('option');     
@@ -59,18 +62,16 @@ class TabConfig extends React.Component {
       //
     });
 
+
     return (
-      <div>
-        <h1>Tab Configuration</h1>
-        <div>
-          This is where you will add your tab configuration options the user can choose when the tab
-          is added to your team/group chat.
-          <p>Please select a supplier country to display in this tab</p>
-          <select id="countrySelect">
+        <div className="div-config">
+          <></>
+          <Title3>Please select a country to display local suppliers</Title3>
+          <Divider appearance="brand"></Divider>
+          <Select id="countrySelect">
               <option disabled="disabled" selected="selected">Select a country</option>
-          </select>
+          </Select>
         </div>
-      </div>
     );
   }
 }

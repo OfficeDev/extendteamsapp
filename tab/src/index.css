@@ -13,3 +13,11 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.div-config {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  justify-content: space-between;
+}
