@@ -84,7 +84,7 @@
             },
             {
                 "id": "northwindOpenPage",
-                "displayName": "Related Suppliers",
+                "displayName": "Related suppliers",
                 "description": "Related Supplier openPage",
                 "intent": "custom",
                 "supportedContent": {
