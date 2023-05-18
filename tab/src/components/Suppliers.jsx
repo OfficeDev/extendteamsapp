@@ -38,6 +38,8 @@ export const Suppliers = () => {
             console.error('Supplier not found or invalid data');
           }
         }
+      
+        
       } catch (error) {
         console.error('Could not initialize Teams JS client library');
       }
@@ -48,26 +50,50 @@ export const Suppliers = () => {
   const handleRowClick = (supplier) => {
     setSelectedSupplier(supplier);
   };
+
+  async function handleCallButtonClick(item) {
+    try {
+      await call.startCall({
+        targets: [
+          'adeleV@m365404404.onmicrosoft.com',
+          'admin@m365404404.onmicrosoft.com'
+        ],
+        requestedModalities: [
+          call.CallModalities.Audio,
+          call.CallModalities.Video,
+          call.CallModalities.VideoBasedScreenSharing,
+          call.CallModalities.Data
+        ]
+      });
+    } catch (error) {
+      // Handle the error or display an error message
+      console.log('An error occurred:', error);
+    }
+  }
+  async function handleMailButtonClick(item){
+    try {
+      await mail.composeMail({
+      type: mail.ComposeMailType.New,
+      subject: `Enquiry for supplier:${item.CompanyName}`,
+      message: 'Hello',
+      toRecipients: [
+        'adeleV@m365404404.onmicrosoft.com',
+        'admin@m365404404.onmicrosoft.com'
+      ]
+    });
+  } catch (error) {
+    // Handle the error or display an error message
+    console.log('An error occurred:', error);
+  }
+}
+
   const renderContactButton = (item, call, mail) => {
     if (call.isSupported()) {
       return (
-        <Button
+        <Button 
           appearance="transparent"
           icon={<CallRegular />}
-          onClick={async () => {
-            await call.startCall({
-              targets: [
-                'adeleV@m365404404.onmicrosoft.com',
-                'admin@m365404404.onmicrosoft.com'
-              ],
-              requestedModalities: [
-                call.CallModalities.Audio,
-                call.CallModalities.Video,
-                call.CallModalities.VideoBasedScreenSharing,
-                call.CallModalities.Data
-              ]
-            });
-          }}
+          onClick={handleCallButtonClick}
         ></Button>
       );
     } else if (mail.isSupported()) {
@@ -75,17 +101,7 @@ export const Suppliers = () => {
         <Button
           appearance="transparent"
           icon={<CalendarMailRegular />}
-          onClick={async () => {
-            mail.composeMail({
-              type: mail.ComposeMailType.New,
-              subject: `Enquiry for supplier:${item.CompanyName}`,
-              message: 'Hello',
-              toRecipients: [
-                'adeleV@m365404404.onmicrosoft.com',
-                'admin@m365404404.onmicrosoft.com'
-              ]
-            });
-          }}
+          onClick={handleMailButtonClick(item)}
         ></Button>
       );
     }
