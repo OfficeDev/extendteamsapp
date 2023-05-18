@@ -1,3 +1,4 @@
+import { ActionObjectType, app } from "@microsoft/teams-js";
 import {
     TeamsUserCredential,
     createMicrosoftGraphClientWithCredential
@@ -9,14 +10,13 @@ import Login from "./custom/Login";
 import MicrosoftGraph from './helper/graph';
 import React from "react";
 import Suppliers from "./custom/Suppliers"
-import { app } from "@microsoft/teams-js";
 import config from "../lib/config";
 
 export default class LaunchPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            actionId: "01JVL355MQ3LUVYVKHMZEJIV2AOP372PEM",
+            itemId: "01JVL355MQ3LUVYVKHMZEJIV2AOP372PEM",
             actionItem: undefined,
             showLoginPage: undefined,
             suppliers: [],
@@ -43,13 +43,13 @@ export default class LaunchPage extends React.Component {
     async fetchData() {
         try {
             const context = await app.getContext();
-            const objectId = context.user && context.user.id;
-            let actionId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
+            const userId = context.user && context.user.id;
+            let itemId = context.actionInfo && context.actionInfo.actionObjects[0].itemId;
 
-            if (!actionId) {
-                actionId = this.state.actionId
+            if (!itemId) {
+                itemId = this.state.itemId
             }
-            this.setState({ actionId: actionId });
+            this.setState({ itemId: itemId });
 
             // Get Microsoft graph client
             const graphClient = createMicrosoftGraphClientWithCredential(
@@ -57,29 +57,31 @@ export default class LaunchPage extends React.Component {
                 this.scope
             );
 
-            const msGraph = new MicrosoftGraph(graphClient, objectId, actionId);
+            if (context.actionInfo.actionObjects[0].type === ActionObjectType.M365Content) {
+                const msGraph = new MicrosoftGraph(graphClient, userId, itemId);
 
-            const actionItem = await msGraph.readActionItem();
-            this.setState({
-                actionItem: actionItem
-            });
+                const actionItem = await msGraph.readActionItem();
+                this.setState({
+                    actionItem: actionItem
+                });
 
-            const response = await fetchSuppliers();
-            this.setState({ suppliers: response.value });
+                const response = await fetchSuppliers();
+                this.setState({ suppliers: response.value });
 
-            const sheetData = await msGraph.readActionItemData();
+                const sheetData = await msGraph.readActionItemData();
 
-            const filteredSupplierList = response.value.map((item, index) => {
-                const isExist = sheetData.find(element => element[0].toLowerCase() === item.CompanyName.toLowerCase());
-                if (isExist) {
-                    return item;
-                }
-                return undefined;
-            });
+                const filteredSupplierList = response.value.map((item, index) => {
+                    const isExist = sheetData.find(element => element[0].toLowerCase() === item.CompanyName.toLowerCase());
+                    if (isExist) {
+                        return item;
+                    }
+                    return undefined;
+                });
 
-            const filteredSupplierListWithAttachmentData = filteredSupplierListWithAttachment(filteredSupplierList)
+                const filteredSupplierListWithAttachmentData = filteredSupplierListWithAttachment(filteredSupplierList)
 
-            this.setState({ filteredSupplierList: filteredSupplierListWithAttachmentData });
+                this.setState({ filteredSupplierList: filteredSupplierListWithAttachmentData });
+            }
         } catch (error) {
             console.log("fetchData", error);
         }
@@ -106,7 +108,7 @@ export default class LaunchPage extends React.Component {
 
     async clearFilter() {
         this.setState({
-            actionId: undefined,
+            itemId: undefined,
             actionItem: undefined,
         });
     }
@@ -117,7 +119,7 @@ export default class LaunchPage extends React.Component {
                 {this.state.showLoginPage === false && (
                     <>
                         <FilteteredResult
-                            actionId={this.state.actionId}
+                            itemId={this.state.itemId}
                             actionItem={this.state.actionItem}
                             sheetData={this.state.filteredSupplierList}
                             clearFilter={this.clearFilter}

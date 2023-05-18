@@ -17,11 +17,11 @@ class FilteteredResult extends React.Component {
         console.log("Filtered", this.props);
         return (
             <>
-                {this.props.actionId && this.props.actionItem && (
+                {this.props.itemId && this.props.actionItem && (
                     <div className='filteredResult'>
                         <div className='filteredHeader'>
                             <Text as="h4" style={{ margin: "10px 0" }} size={500} weight='bold'>Filtered Result:</Text>
-                            <Button appearance='primary' onClick={this.props.clearFilter}>
+                            <Button className="filteredHeaderBtn" appearance='primary' onClick={this.props.clearFilter}>
                                 Clear Filter
                             </Button>
                         </div>
@@ -32,24 +32,6 @@ class FilteteredResult extends React.Component {
                                 }
                                 <Attachment actionItem={this.props.actionItem} appearance="subtle" />
                             </div>
-                            {/* <div className="filteredList">
-                                {this.props.sheetData && this.props.sheetData.length > 0 &&
-                                    <>
-                                        <Text as='h4' weight='bold'> List of Supplier Names :</Text>
-                                        <div className='filteredListItems'>
-                                            {this.props.sheetData.map((item, index) => {
-                                                return (
-                                                    <div className='filteredListItem' key={item.SupplierId}>
-                                                        <Label style={{ fontSize: '12px', paddingLeft: "1px" }}>
-                                                            {item.CompanyName}
-                                                        </Label>
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </>
-                                }
-                            </div> */}
                         </div>
                     </div>)
                 }

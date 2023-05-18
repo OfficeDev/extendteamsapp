@@ -12,6 +12,10 @@
     width: 100%;
 }
 
+.filteredHeaderBtn {
+    height: fit-content;
+}
+
 .filteredBody {
     display: flex;
 }
@@ -28,9 +32,6 @@
 .filteredAttachment {
     display: flex;
     flex-direction: column;
-    width: 50%;
 }
 
-.filteredText {
-    margin-bottom: 10px;
-}
+.filteredText {}

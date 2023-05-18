@@ -1,17 +1,17 @@
 
 export default class MicrosoftGraph {
-    constructor(graphClient, objectId, actionId) {
+    constructor(graphClient, objectId, itemId) {
         this.graphClient = graphClient;
         this.objectId = objectId;
-        this.actionId = actionId;
+        this.itemId = itemId;
     }
 
     /**
-     * @returns the action information based actionId
+     * @returns the action information based itemId
      */
     async readActionItem() {
         try {
-            return await this.graphClient.api(`/users/${this.objectId}/drive/items/${this.actionId}`).get();
+            return await this.graphClient.api(`/users/${this.objectId}/drive/items/${this.itemId}`).get();
         } catch (error) {
             console.log("readActionItem", error);
         }
@@ -23,10 +23,10 @@ export default class MicrosoftGraph {
     async readActionItemData() {
         try {
             //Gets the excel worksheets
-            const worksheets = (await this.graphClient.api(`/users/${this.objectId}/drive/items/${this.actionId}/workbook/worksheets`).get()).value;
+            const worksheets = (await this.graphClient.api(`/users/${this.objectId}/drive/items/${this.itemId}/workbook/worksheets`).get()).value;
 
             //Gets the sheet range based on worksheet name
-            const sheetData = (await this.graphClient.api(`/users/${this.objectId}/drive/items/${this.actionId}/workbook/worksheets('${worksheets[0].name}')/usedRange`).get()).values;
+            const sheetData = (await this.graphClient.api(`/users/${this.objectId}/drive/items/${this.itemId}/workbook/worksheets('${worksheets[0].name}')/usedRange`).get()).values;
 
             return sheetData;
         } catch (error) {

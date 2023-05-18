@@ -19,7 +19,7 @@ provision:
       name: NorthwindSuppliers-${{TEAMSFX_ENV}} # The Azure Active Directory application's display name
     writeToEnvironmentFile:
       botId: BOT_ID # The Azure Active Directory application's client id created for bot.
-      botPassword: SECRET_BOT_PASSWORD # The Azure Active Directory application's client secret created for bot. 
+      botPassword: SECRET_BOT_PASSWORD # The Azure Active Directory application's client secret created for bot.
 
   - uses: arm/deploy # Deploy given ARM templates parallelly.
     with:
@@ -58,6 +58,13 @@ deploy:
   - uses: cli/runNpmCommand # Run npm command
     with:
       args: install --production
+  - uses: cli/runNpmCommand # Run npm command
+    name: build app
+    env:
+      REACT_APP_CLIENT_ID: ${{AAD_APP_CLIENT_ID}}
+      REACT_APP_START_LOGIN_PAGE_URL: ${{TAB_ENDPOINT}}/auth-start.html
+    with:
+      args: run build --if-present
   # Deploy your application to Azure App Service using the zip deploy feature.
   # For additional details, please refer to https://aka.ms/zip-deploy-to-app-services.
   - uses: azureAppService/zipDeploy

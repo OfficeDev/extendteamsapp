@@ -2,7 +2,7 @@
 import { FluentProvider, teamsLightTheme, tokens } from "@fluentui/react-components";
 import { Navigate, Route, HashRouter as Router, Routes } from "react-router-dom";
 
-import DialogPage from "./Dailog";
+import DialogPage from "./Dialog";
 import LaunchPage from "./LaunchPage";
 import Privacy from "./Privacy";
 import React from "react";

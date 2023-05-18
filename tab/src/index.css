@@ -34,3 +34,11 @@ body {
   display: block;
   margin: 32px auto;
 }
+
+.selectedSupplier {
+  background: #fff;
+}
+
+.selectedSupplierBtn {
+  margin: 10px 0px
+}

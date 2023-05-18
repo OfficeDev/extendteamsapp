@@ -1,5 +1,5 @@
-import { DefaultButton, DetailsList, SelectionMode } from '@fluentui/react';
-import { Link, Text } from '@fluentui/react-components'
+import { Button, Link, Text } from '@fluentui/react-components'
+import { DetailsList, SelectionMode } from '@fluentui/react';
 
 import React from 'react';
 
@@ -120,15 +120,15 @@ class Suppliers extends React.Component {
                     />
                 </div>)}
             {this.state.selectedSupplier && (
-                <div>
+                <div className="selectedSupplier">
                     <DetailsList
                         items={[this.state.selectedSupplier]}
                         columns={selectSuppliercolumn}
                         selectionMode={SelectionMode.none}
                     />
-                    <DefaultButton key={""} onClick={() => this.handleRowClick(null)}>
+                    <Button className="selectedSupplierBtn" key={""} onClick={() => this.handleRowClick(null)}>
                         Back to Suppliers
-                    </DefaultButton>
+                    </Button>
                 </div>
             )}
         </div>)

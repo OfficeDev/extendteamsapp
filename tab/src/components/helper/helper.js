@@ -1,15 +1,38 @@
 const storageKey = "store";
-
+const MimeType = {
+    PDF: "application/pdf",
+    Excel: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    Word: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    PowerPoint: "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+}
 /**
  * @param mimeType
  * Returns the icon name based on file's mimeType
 */
 export function getIconName(mimeType) {
     switch (mimeType) {
-        case "application/pdf": return "PDF";
-        case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": return "ExcelDocument";
-        case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": return "WordDocument";
-        case "application/vnd.openxmlformats-officedocument.presentationml.presentation": return "PowerPointDocument";
+        case MimeType.PDF: return "PDF";
+        case MimeType.Excel: return "ExcelDocument";
+        case MimeType.Word: return "WordDocument";
+        case MimeType.PowerPoint: return "PowerPointDocument";
+        default: return "FileCode";
+    }
+}
+
+/**
+ * @param mimeType
+ * Returns the icon url based on file's mimeType
+*/
+export function getImageIcon(mimeType) {
+    switch (mimeType) {
+        case MimeType.PDF:
+            return "https://spoppe-b.azureedge.net/files/fabric-cdn-prod_20211104.001/assets/item-types/32_1.5x/pdf.svgF";
+        case MimeType.Excel:
+            return "https://spoppe-b.azureedge.net/files/fabric-cdn-prod_20211104.001/assets/item-types/32_1.5x/xlsx.svg";
+        case MimeType.Word:
+            return "https://spoppe-b.azureedge.net/files/fabric-cdn-prod_20211104.001/assets/item-types/32_1.5x/docx.svg";
+        case MimeType.PowerPoint:
+            return "https://spoppe-b.azureedge.net/files/fabric-cdn-prod_20211104.001/assets/item-types/32_1.5x/pptx.svg";
         default: return "FileCode";
     }
 }

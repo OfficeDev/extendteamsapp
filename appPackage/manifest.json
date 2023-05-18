@@ -1,7 +1,7 @@
 {
-    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.14/MicrosoftTeams.schema.json",
-    "manifestVersion": "1.14",
-    "version": "1.0.0",
+    "$schema": "https://office.visualstudio.com/MetaOS/_git/TPS-AppServices?path=/src/Services/Core/Common/Contract/src/Ingestion/Schemas/MOS_Schema_m365DevPreview.json&version=GBmain",
+    "manifestVersion": "devPreview",
+    "version": "1.0.2",
     "id": "${{TEAMS_APP_ID}}",
     "packageName": "com.microsoft.teams.extension",
     "developer": {
@@ -15,12 +15,12 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "Northwind-${{TEAMSFX_ENV}}",
-        "full": "full name for Northwind suppliers"
+        "short": "Northwind",
+        "full": "Northwind suppliers"
     },
     "description": {
-        "short": "short description of Northwind suppliers",
-        "full": "full description of Northwind suppliers"
+        "short": "Northwind suppliers",
+        "full": "Northwind suppliers"
     },
     "accentColor": "#FFFFFF",
     "bots": [],
@@ -36,7 +36,7 @@
         },
         {
             "entityId": "launchPage",
-            "name": "LP",
+            "name": "Northwind",
             "contentUrl": "${{TAB_ENDPOINT}}/index.html#/launchPage",
             "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/launchPage",
             "scopes": [
@@ -53,6 +53,54 @@
             ]
         }
     ],
+    "actions": {
+        "actionGroups": [
+            {
+                "id": "northWindActionGroup",
+                "displayName": "Northwind Action Group",
+                "associatedActions": [
+                    "all"
+                ]
+            }
+        ],
+        "contentActions": [
+            {
+                "id": "northwindOpenDialog",
+                "displayName": "Add To Supplier",
+                "intent": "addTo",
+                "supportedContent": {
+                    "file": {
+                        "extensions": [
+                            "xlsx",
+                            "doc",
+                            "docx"
+                        ]
+                    }
+                },
+                "type": "openDialog",
+                "url": "${{TAB_ENDPOINT}}/index.html#/dialogPage",
+                "width": "small",
+                "height": "large"
+            },
+            {
+                "id": "northwindOpenPage",
+                "displayName": "Related Suppliers",
+                "description": "Related Supplier openPage",
+                "intent": "custom",
+                "supportedContent": {
+                    "file": {
+                        "extensions": [
+                            "xlsx"
+                        ]
+                    },
+                    "folder": null
+                },
+                "type": "openPage",
+                "pageId": "launchPage",
+                "subPageId": ""
+            }
+        ]
+    },
     "composeExtensions": [
         {
             "botId": "${{BOT_ID}}",

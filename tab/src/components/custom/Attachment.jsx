@@ -11,7 +11,7 @@ import {
 
 import { Icon } from '@fluentui/react/lib/Icon';
 import React from "react";
-import { getIconName } from '../helper/helper';
+import { getImageIcon } from '../helper/helper';
 
 class Attachment extends React.Component {
     constructor(props) {
@@ -23,6 +23,7 @@ class Attachment extends React.Component {
         const useStyles = {
             card: {
                 maxWidth: "100%",
+                marginTop: "5px"
             },
             caption: {
                 color: tokens.colorNeutralForeground3,
@@ -32,7 +33,9 @@ class Attachment extends React.Component {
             <>{this.props.actionItem &&
                 <Card style={useStyles.card} orientation="horizontal" appearance={this.props.appearance ? this.props.appearance : undefined}>
                     <CardPreview>
-                        <Icon iconName={getIconName(this.props.actionItem.file.mimeType)} style={{ fontSize: "28px", paddingTop: `${this.props.iconPaddingTop}` }} />
+                        <Icon style={{ fontSize: "28px", paddingTop: `${this.props.iconPaddingTop}` }}>
+                            <img height={32} width={32} src={getImageIcon(this.props.actionItem.file.mimeType)} alt={this.props.actionItem.name} />
+                        </Icon>
                     </CardPreview>
                     <CardHeader
                         header={<Text weight="semibold">{this.props.actionItem.name}</Text>}
