@@ -33,8 +33,7 @@ class TeamsBot extends TeamsActivityHandler {
   //use https://www.northwindtraders.com?supplierID=6
   async handleTeamsAppBasedLinkQuery(context, query) {
     
-    //return NorthwindLinkME.linkQuery(context, query);
-    return SupplierME.linkQuery(context, query)
+       return SupplierME.linkQuery(context, query)
     
   }
 }
