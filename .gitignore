@@ -12,3 +12,10 @@ node_modules/
 .DS_Store
 
 appPackage/build
+package-lock.json
+.gitignore
+appPackage/outline2.png
+bot/package-lock.json
+tab/package-lock.json
+bot/package-lock.json
+tab/package-lock.json
