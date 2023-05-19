@@ -98,10 +98,9 @@
                 "meetingDetailsTab",
                 "meetingSidePanel",
                 "meetingStage"
-              ]
+            ]
         }
     ],
-   
     "permissions": [
         "identity",
         "messageTeamMembers"
@@ -109,5 +108,4 @@
     "validDomains": [
         "${{TAB_DOMAIN}}"
     ]
-   
 }

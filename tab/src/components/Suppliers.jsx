@@ -100,7 +100,7 @@ export const Suppliers = () => {
         <Button
           appearance="transparent"
           icon={<CalendarMailRegular />}
-          onClick={handleMailButtonClick(item)}
+          onClick={handleMailButtonClick}
         ></Button>
       );
     }
