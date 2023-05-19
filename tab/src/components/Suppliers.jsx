@@ -74,11 +74,10 @@ export const Suppliers = () => {
     try {
       await mail.composeMail({
       type: mail.ComposeMailType.New,
-      subject: `Enquiry for supplier:${item.CompanyName}`,
+      subject: `Update Needed: ${item.CompanyName}`,
       message: 'Hello',
       toRecipients: [
-        'adeleV@m365404404.onmicrosoft.com',
-        'admin@m365404404.onmicrosoft.com'
+        'adeleV@m365404404.onmicrosoft.com'
       ]
     });
   } catch (error) {
