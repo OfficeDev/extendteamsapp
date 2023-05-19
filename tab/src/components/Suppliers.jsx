@@ -57,8 +57,7 @@ export const Suppliers = () => {
           onClick={async () => {
             await call.startCall({
               targets: [
-                'adeleV@m365404404.onmicrosoft.com',
-                'admin@m365404404.onmicrosoft.com'
+                'adelev@tr5yn.onmicrosoft.com'
               ],
               requestedModalities: [
                 call.CallModalities.Audio,
@@ -78,11 +77,10 @@ export const Suppliers = () => {
           onClick={async () => {
             mail.composeMail({
               type: mail.ComposeMailType.New,
-              subject: `Enquiry for supplier:${item.CompanyName}`,
+              subject: `Supplier details: ${item.CompanyName}`,
               message: 'Hello',
               toRecipients: [
-                'adeleV@m365404404.onmicrosoft.com',
-                'admin@m365404404.onmicrosoft.com'
+                'adelev@tr5yn.onmicrosoft.com'
               ]
             });
           }}

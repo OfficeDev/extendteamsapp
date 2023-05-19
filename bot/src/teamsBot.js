@@ -30,11 +30,12 @@ class TeamsBot extends TeamsActivityHandler {
         return null;
     }
   }
-  //use https://test.northwindtraders.com?supplierID=3
+  //use https://www.northwindtraders.com?supplierID=6
   async handleTeamsAppBasedLinkQuery(context, query) {
     
-    return NorthwindLinkME.linkQuery(context, query);
-
+    //return NorthwindLinkME.linkQuery(context, query);
+    return SupplierME.linkQuery(context, query)
+    
   }
 }
 
