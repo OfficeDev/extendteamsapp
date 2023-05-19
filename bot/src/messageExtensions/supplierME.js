@@ -125,9 +125,10 @@ class SupplierME {
                         });
 
                         attachment = CardFactory.adaptiveCard(card);
+                        attachment.preview = CardFactory.thumbnailCard(supplier.CompanyName,
+                               `${supplier.City}, ${supplier.Country}`,[imageUrl]);
 
-                        //attachment = CardFactory.thumbnailCard(supplier.CompanyName,
-                        //   `${supplier.City}, ${supplier.Country}`,[imageUrl]);
+                       
                         
                     }
 
