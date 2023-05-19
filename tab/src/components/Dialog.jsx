@@ -27,6 +27,7 @@ class DialogPage extends React.Component {
             filteredSupplierList: undefined,
             selectedSupplier: undefined,
         };
+        this.loginBtn = this.loginBtn.bind(this);
     }
     async componentDidMount() {
         await this.initTeamsFx();

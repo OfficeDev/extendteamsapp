@@ -131,6 +131,5 @@ export async function loginBtnClick(credential, scope) {
         }
 
         alert("Login failed: " + err);
-        return;
     }
 }

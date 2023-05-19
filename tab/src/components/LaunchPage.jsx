@@ -23,6 +23,7 @@ export default class LaunchPage extends React.Component {
             filteredSupplierList: undefined
         };
         this.clearFilter = this.clearFilter.bind(this);
+        this.loginBtn = this.loginBtn.bind(this);
     }
 
     async componentDidMount() {
