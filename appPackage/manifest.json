@@ -19,8 +19,8 @@
         "full": "full name for Northwind suppliers"
     },
     "description": {
-        "short": "short description of Northwind suppliers",
-        "full": "full description of Northwind suppliers"
+        "short": "Search for Northwind suppliers",
+        "full": "Search for Northwind suppliers"
     },
     "accentColor": "#FFFFFF",
     "authorization": {
@@ -77,7 +77,6 @@
                     "type": "link",
                     "value": {
                         "domains": [
-                            "*.botframework.com",
                             "*.northwindtraders.com"
                         ]
                     }
@@ -99,10 +98,9 @@
                 "meetingDetailsTab",
                 "meetingSidePanel",
                 "meetingStage"
-              ]
+            ]
         }
     ],
-   
     "permissions": [
         "identity",
         "messageTeamMembers"
@@ -110,5 +108,4 @@
     "validDomains": [
         "${{TAB_DOMAIN}}"
     ]
-   
 }
