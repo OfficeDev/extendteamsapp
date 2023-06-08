@@ -12,6 +12,10 @@ provision:
     name: Set TAB_ENDPOINT for local launch
     with:
       run: echo "::set-output TAB_ENDPOINT=https://localhost:53001"
+  - uses: script # Set TAB_DOMAIN for local launch
+    name: Set ADDIN_DOMAIN for local launch
+    with:
+      run: echo "::set-output ADDIN_DOMAIN=localhost:53001"
   - uses: teamsApp/create # Creates a Teams app
     with:
       name: NorthwindSuppliers-${{TEAMSFX_ENV}} # Teams app name
