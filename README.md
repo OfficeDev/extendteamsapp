@@ -23,6 +23,14 @@ This app will have below Teams capabilities
 
 Follow below instructions to get started with this application template for local debugging.
 
+### Update the local enviornment variables
+In the .env.local file under /env, find the lines that assign values to the TAB_DOMAIN and TAB_ENDPOINT variables. Add the following lines immediately below them:
+
+```
+ADDIN_DOMAIN=localhost:53001
+ADDIN_ENDPOINT=https://localhost:53001
+```
+
 ### Test your application with Visual Studio Code
 
 1. Press `F5` or use the `Run and Debug Activity Panel` in Visual Studio Code.
