@@ -10,26 +10,19 @@ This app will have below Teams capabilities
 - Channel tab
 - Meeting app
 
-
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/), supported versions:  16, 18
 - An M365 account. If you do not have M365 account, apply one from [M365 developer program](https://developer.microsoft.com/microsoft-365/dev-program)
 - [Set up your dev environment for extending Teams apps across Microsoft 365](https://aka.ms/teamsfx-m365-apps-prerequisites)
+
 > Please note that after you enrolled your developer tenant in Office 365 Target Release, it may take couple days for the enrollment to take effect.
+
 - [Teams Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) or [TeamsFx CLI](https://aka.ms/teamsfx-cli)
 
 ## Getting Started
 
 Follow below instructions to get started with this application template for local debugging.
-
-### Update the local enviornment variables
-In the .env.local file under /env, find the lines that assign values to the TAB_DOMAIN and TAB_ENDPOINT variables. Add the following lines immediately below them:
-
-```
-ADDIN_DOMAIN=localhost:53001
-ADDIN_ENDPOINT=https://localhost:53001
-```
 
 ### Test your application with Visual Studio Code
 
@@ -50,13 +43,15 @@ Find the app "Northwind-local" and search for "c" select the product "Chai" (Or 
 Open Outlook, create a new email. From the top ribbon select the Apps icons and choose "Northwind-local" app. Do the search and insert of cards similar to the instructions in Teams.
 
 ### Link unfurling in Teams and Outlook
+
 Go to Teams chat or Outlook compose email and paste below link:
 
-```
+```lang-http
 https://test.northwindtraders.com?supplierID=3
 
 ```
-You can change the ID to 1 or 2. 
+
+You can change the ID to 1 or 2.
 The link should show a preview card automatically.
 
 ### Pages with action
@@ -65,14 +60,21 @@ After side loading the app open the app by "Adding" the personal tab.
 The tab will list the suppliers dashboard.
 
 In Teams you will see the contact information has a call button to call the contacts.
-In Outlook launch the same personal tab/page and you will see a mail button to compose a mail to the contacts. 
-
+In Outlook launch the same personal tab/page and you will see a mail button to compose a mail to the contacts.
 
 ### Outlook add-in
 
 To run outlook add-in you need a windows desktop app with Beta channel.
-You'll need to choose the debug configuration `Outlook Desktop (Edge Chromium)` before selecting F5.
+You'll need to choose the debug configuration `Outlook Desktop (Edge Chromium)` before selecting F5. Be sure you choose the configuration with "Desktop" in the name and _not_ just "Outlook"
 This will sideload the add-in to Outlook.
+
+The first time you run this add-in, you will get two prompts that need to be answered:
+
+1. You will be prompted in the VS Code Terminal window:
+"Allow localhost loopback for Microsoft Edge WebView? (Y/n)"
+You will need to accept this for the add-in/debugging to work
+2. There will be a Windows pop-up asking if you want to install a certificate into your machine's certificate store. You will need to accept this in order to proceed. Note:
+Sometimes the window prompting this pops-up behind other windows. You may need to keep an keen eye out for it when you're running this for the first time.
 
 To test:
 
@@ -84,9 +86,9 @@ You will get a dialog prompt to add the `Northwind suppliers: sales`to the meeti
 
 ## References
 
-* [Extend a Teams message extension across Microsoft 365](https://docs.microsoft.com/microsoftteams/platform/m365-apps/extend-m365-teams-message-extension?tabs=manifest-teams-toolkit)
-* [Bot Framework Documentation](https://docs.botframework.com/)
-* [Teams Toolkit Documentations](https://docs.microsoft.com/microsoftteams/platform/toolkit/teams-toolkit-fundamentals)
-* [Teams Toolkit CLI](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-cli)
-* [TeamsFx SDK](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-sdk)
-* [Teams Toolkit Samples](https://github.com/OfficeDev/TeamsFx-Samples)
+- [Extend a Teams message extension across Microsoft 365](https://docs.microsoft.com/microsoftteams/platform/m365-apps/extend-m365-teams-message-extension?tabs=manifest-teams-toolkit)
+- [Bot Framework Documentation](https://docs.botframework.com/)
+- [Teams Toolkit Documentations](https://docs.microsoft.com/microsoftteams/platform/toolkit/teams-toolkit-fundamentals)
+- [Teams Toolkit CLI](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-cli)
+- [TeamsFx SDK](https://docs.microsoft.com/microsoftteams/platform/toolkit/teamsfx-sdk)
+- [Teams Toolkit Samples](https://github.com/OfficeDev/TeamsFx-Samples)
