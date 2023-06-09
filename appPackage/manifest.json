@@ -137,8 +137,8 @@
                     "id": "runtime_1",
                     "type": "general",
                     "code": {
-                        "page": "https://localhost:53000/commands.html",
-                        "script": "https://localhost:53000/commands.js"
+                        "page": "${{ADDIN_ENDPOINT}}/commands.html",
+                        "script": "${{ADDIN_ENDPOINT}}/commands.js"
                     },
                     "lifetime": "short",
                     "actions": [
@@ -176,7 +176,7 @@
                     "id": "runtime_2",
                     "type": "general",
                     "code": {
-                        "page": "https://localhost:53000/taskpane.html"
+                        "page": "${{ADDIN_ENDPOINT}}/taskpane.html"
                     },
                     "lifetime": "short",
                     "actions": [
@@ -231,15 +231,15 @@
                                             "icons": [
                                                 {
                                                     "size": 16,
-                                                    "file": "https://localhost:53000/assets/icon-16.png"
+                                                    "file": "${{ADDIN_ENDPOINT}}/assets/icon-16.png"
                                                 },
                                                 {
                                                     "size": 32,
-                                                    "file": "https://localhost:53000/assets/icon-32.png"
+                                                    "file": "${{ADDIN_ENDPOINT}}/assets/icon-32.png"
                                                 },
                                                 {
                                                     "size": 80,
-                                                    "file": "https://localhost:53000/assets/icon-80.png"
+                                                    "file": "${{ADDIN_ENDPOINT}}/assets/icon-80.png"
                                                 }
                                             ],
                                             "supertip": {
@@ -290,15 +290,15 @@
                                             "icons": [
                                                 {
                                                     "size": 16,
-                                                    "file": "https://localhost:53000/assets/icon-16_02.png"
+                                                    "file": "${{ADDIN_ENDPOINT}}/assets/icon-16_02.png"
                                                 },
                                                 {
                                                     "size": 32,
-                                                    "file": "https://localhost:53000/assets/icon-32_02.png"
+                                                    "file": "${{ADDIN_ENDPOINT}}/assets/icon-32_02.png"
                                                 },
                                                 {
                                                     "size": 80,
-                                                    "file": "https://localhost:53000/assets/icon-80_02.png"
+                                                    "file": "${{ADDIN_ENDPOINT}}/assets/icon-80_02.png"
                                                 }
                                             ],
                                             "supertip": {
@@ -355,7 +355,7 @@
                     ]
                 }
             ],
-            "audienceClaimUrl": "https://localhost:53000/taskpane.html"
+            "audienceClaimUrl": "${{ADDIN_ENDPOINT}}/taskpane.html"
         }
     ]
 }
