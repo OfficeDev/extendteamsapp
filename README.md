@@ -41,6 +41,7 @@ Find the app "Northwind-local" and search for "c" select the product "Chai" (Or 
 ### Message extension in Outlook
 
 Open Outlook, create a new email. From the top ribbon select the Apps icons and choose "Northwind-local" app. Do the search and insert of cards similar to the instructions in Teams.
+![Message extension in Outlook](./assets/me.jpg)
 
 ### Link unfurling in Teams and Outlook
 
@@ -54,6 +55,8 @@ https://test.northwindtraders.com?supplierID=3
 You can change the ID to 1 or 2.
 The link should show a preview card automatically.
 
+![Link unfurling in Teams and Outlook](./assets/linkunfurl.jpg)
+
 ### Pages with action
 
 After side loading the app open the app by "Adding" the personal tab.
@@ -61,6 +64,8 @@ The tab will list the suppliers dashboard.
 
 In Teams you will see the contact information has a call button to call the contacts.
 In Outlook launch the same personal tab/page and you will see a mail button to compose a mail to the contacts.
+
+![Pages with action](./assets/pages.jpg)
 
 ### Outlook add-in
 
@@ -83,6 +88,8 @@ Select a category from the form (one or more categories) and apply to the mail. 
 Don't select `Northwind suppliers: sales` from the list. Compose email with body having "sales" in text.
 Try to send the meeting request after filling the rest (Title, To, lLocation etc) of the form.
 You will get a dialog prompt to add the `Northwind suppliers: sales`to the meeting before sending.
+
+![Outlook add-in](./assets/outlook-addin.jpg)
 
 ## References
 
